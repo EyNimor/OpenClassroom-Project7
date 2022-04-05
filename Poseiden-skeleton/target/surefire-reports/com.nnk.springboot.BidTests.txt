@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+Test set: com.nnk.springboot.BidTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 7.811 s <<< FAILURE! - in com.nnk.springboot.BidTests
+bidListTest(com.nnk.springboot.BidTests)  Time elapsed: 0.193 s  <<< ERROR!
+org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+	at com.nnk.springboot.BidTests.bidListTest(BidTests.java:27)
+Caused by: javax.persistence.RollbackException: Error while committing the transaction
+	at com.nnk.springboot.BidTests.bidListTest(BidTests.java:27)
+Caused by: javax.validation.ConstraintViolationException: 
+Validation failed for classes [com.nnk.springboot.domain.BidList] during persist time for groups [javax.validation.groups.Default, ]
+List of constraint violations:[
+	ConstraintViolationImpl{interpolatedMessage='Type is mandatory', propertyPath=type, rootBeanClass=class com.nnk.springboot.domain.BidList, messageTemplate='Type is mandatory'}
+	ConstraintViolationImpl{interpolatedMessage='Account is mandatory', propertyPath=account, rootBeanClass=class com.nnk.springboot.domain.BidList, messageTemplate='Account is mandatory'}
+]
+	at com.nnk.springboot.BidTests.bidListTest(BidTests.java:27)
+

@@ -1,6 +1,13 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.service.Services;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,17 +16,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
+    
+    private static final Logger logger = LogManager.getLogger("BidController");
+
+    @Autowired
+    @Qualifier("bidService")
+    protected Services service;
 
     @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
-        // TODO: call service find all bids to show to the view
+    public String home(Model model) {
+        List<BidList> bidList = service.castList(BidList.class, service.getAll());
+        model.addAttribute("bids", bidList);
         return "bidList/list";
     }
 
@@ -30,26 +44,40 @@ public class BidListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
+        if(!result.hasErrors()) {
+            service.post(bid);
+            List<BidList> bidList = service.castList(BidList.class, service.getAll());
+            model.addAttribute("bids", bidList);
+            return "redirect:/bidList/list";
+        }
         return "bidList/add";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
+        BidList bid = (BidList) service.get(id);
+        model.addAttribute("bid", bid);
         return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bid,
+                             BindingResult result, Model model) throws NotFoundException {
+        if (result.hasErrors()) {
+            return "bidList/update";
+        }
+
+        service.put(bid);
+        List<BidList> bidList = service.castList(BidList.class, service.getAll());
+        model.addAttribute("bids", bidList);
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
+        service.delete(id);
+        List<BidList> bidList = service.castList(BidList.class, service.getAll());
+        model.addAttribute("bids", bidList);
         return "redirect:/bidList/list";
     }
 }
