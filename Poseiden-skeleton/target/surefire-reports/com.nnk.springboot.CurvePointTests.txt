@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.nnk.springboot.CurvePointTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.112 s <<< FAILURE! - in com.nnk.springboot.CurvePointTests
-curvePointTest(com.nnk.springboot.CurvePointTests)  Time elapsed: 0.011 s  <<< ERROR!
-java.lang.NullPointerException
-	at com.nnk.springboot.CurvePointTests.curvePointTest(CurvePointTests.java:29)
-

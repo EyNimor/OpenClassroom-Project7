@@ -33,7 +33,7 @@ public class BidListController {
     @RequestMapping("/bidList/list")
     public String home(Model model) {
         List<BidList> bidList = service.castList(BidList.class, service.getAll());
-        model.addAttribute("bids", bidList);
+        model.addAttribute("bidList", bidList);
         return "bidList/list";
     }
 
@@ -47,7 +47,7 @@ public class BidListController {
         if(!result.hasErrors()) {
             service.post(bid);
             List<BidList> bidList = service.castList(BidList.class, service.getAll());
-            model.addAttribute("bids", bidList);
+            model.addAttribute("bidList", bidList);
             return "redirect:/bidList/list";
         }
         return "bidList/add";
@@ -56,7 +56,7 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         BidList bid = (BidList) service.get(id);
-        model.addAttribute("bid", bid);
+        model.addAttribute("bidList", bid);
         return "bidList/update";
     }
 
@@ -69,7 +69,7 @@ public class BidListController {
 
         service.put(bid);
         List<BidList> bidList = service.castList(BidList.class, service.getAll());
-        model.addAttribute("bids", bidList);
+        model.addAttribute("bidList", bidList);
         return "redirect:/bidList/list";
     }
 
@@ -77,7 +77,7 @@ public class BidListController {
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         service.delete(id);
         List<BidList> bidList = service.castList(BidList.class, service.getAll());
-        model.addAttribute("bids", bidList);
+        model.addAttribute("bidList", bidList);
         return "redirect:/bidList/list";
     }
 }

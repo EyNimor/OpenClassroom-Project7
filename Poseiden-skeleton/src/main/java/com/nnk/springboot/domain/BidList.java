@@ -7,12 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bidlist")
 @AllArgsConstructor @NoArgsConstructor @Getter @Setter
 public class BidList { 
+
+    private static final Logger logger = LogManager.getLogger("BidList");
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -40,5 +46,18 @@ public class BidList {
     private String dealType ;
     private String sourceListId ;
     private String side ;
+
+    public BidList(Object object) {
+        BidList casted = (BidList) object;
+        this.setAccount(casted.getAccount());
+        this.setType(casted.getType());
+        if(casted.getBidQuantity() == null) {
+            logger.info("BidQuantity = null : passage à 0.0");
+            this.setBidQuantity(0.0);
+        }
+        else {
+            this.setBidQuantity(casted.getBidQuantity());
+        }
+    }
 
 }

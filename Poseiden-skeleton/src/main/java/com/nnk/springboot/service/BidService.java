@@ -3,6 +3,8 @@ package com.nnk.springboot.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
@@ -23,15 +25,7 @@ public class BidService implements Services {
 
     @Override
     public <T> List<T> castList(Class<? extends T> clazz, Collection<?> rawCollection) {
-        List<T> result = new ArrayList<>(rawCollection.size());
-        for (Object o : rawCollection) {
-            try {
-                result.add(clazz.cast(o));
-            } catch (ClassCastException e) {
-                // log the exception or other error handling
-            }
-        }
-        return result;
+        return rawCollection.stream().map(o -> clazz.cast(o)).collect(Collectors.toList());
     }
 
     @Override
@@ -48,7 +42,7 @@ public class BidService implements Services {
 
     @Override
     public void post(Object objectToPost) {
-        BidList bidToPost = (BidList) objectToPost;
+        BidList bidToPost = new BidList(objectToPost);
         bidListRepo.saveAndFlush(bidToPost);
     }
 
