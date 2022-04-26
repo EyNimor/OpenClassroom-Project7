@@ -55,7 +55,7 @@ public class BidListController {
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        BidList bid = (BidList) service.get(id);
+        BidList bid = new BidList(service.get(id));
         model.addAttribute("bidList", bid);
         return "bidList/update";
     }
@@ -67,6 +67,7 @@ public class BidListController {
             return "bidList/update";
         }
 
+        bid.setBidListId(id);
         service.put(bid);
         List<BidList> bidList = service.castList(BidList.class, service.getAll());
         model.addAttribute("bidList", bidList);

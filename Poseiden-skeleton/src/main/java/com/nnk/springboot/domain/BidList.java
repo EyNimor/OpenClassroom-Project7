@@ -49,6 +49,7 @@ public class BidList {
 
     public BidList(Object object) {
         BidList casted = (BidList) object;
+        this.setBidListId(casted.getBidListId());
         this.setAccount(casted.getAccount());
         this.setType(casted.getType());
         if(casted.getBidQuantity() == null) {

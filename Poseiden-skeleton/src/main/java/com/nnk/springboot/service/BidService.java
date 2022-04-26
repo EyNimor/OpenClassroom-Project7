@@ -1,9 +1,7 @@
 package com.nnk.springboot.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.nnk.springboot.domain.BidList;
@@ -48,7 +46,7 @@ public class BidService implements Services {
 
     @Override
     public void put(Object objectToPut) throws NotFoundException {
-        BidList bidToPut = (BidList) objectToPut;
+        BidList bidToPut = new BidList(objectToPut);
         BidList ancientBid = bidListRepo.findById(bidToPut.getBidListId()).orElseThrow(NotFoundException::new);
         ancientBid.setAccount(bidToPut.getAccount());
         ancientBid.setType(bidToPut.getType());
