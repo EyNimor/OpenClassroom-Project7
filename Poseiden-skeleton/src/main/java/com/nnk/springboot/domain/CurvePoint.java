@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-
 @Entity
 @Table(name = "curvepoint")
 @AllArgsConstructor @NoArgsConstructor @Getter @Setter
@@ -32,12 +31,6 @@ public class CurvePoint {
         this.setCurveId(casted.getCurveId());
         this.setTerm(casted.getTerm());
         this.setValue(casted.getValue());
-    }
-
-    @Override
-    public String toString() {
-        return "CurvePoint [asOfDate=" + asOfDate + ", creationDate=" + creationDate + ", curveId=" + curveId + ", id="
-                + id + ", term=" + term + ", value=" + value + "]";
     }
 
 }

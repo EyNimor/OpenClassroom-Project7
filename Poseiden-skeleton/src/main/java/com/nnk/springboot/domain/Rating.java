@@ -20,4 +20,12 @@ public class Rating {
     private String fitchRating ;
     private Integer orderNumber ;
 
+    public Rating(Object object) {
+        Rating casted = (Rating) object;
+        this.setId(casted.getId());
+        this.setMoodysRating(casted.getMoodysRating());
+        this.setSandPRating(casted.getSandPRating());
+        this.setFitchRating(casted.getFitchRating());
+    }
+
 }
