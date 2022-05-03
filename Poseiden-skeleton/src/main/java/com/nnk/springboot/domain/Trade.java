@@ -39,4 +39,12 @@ public class Trade {
     private String sourceListId ;
     private String side ;
 
+    public Trade(Object object) {
+        Trade casted = (Trade) object;
+        this.setTradeId(casted.getTradeId());
+        this.setAccount(casted.getAccount());
+        this.setType(casted.getType());
+        this.setBuyQuantity(casted.getBuyQuantity());
+    }
+
 }
