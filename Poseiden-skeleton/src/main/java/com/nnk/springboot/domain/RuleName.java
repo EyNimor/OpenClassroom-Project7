@@ -22,4 +22,11 @@ public class RuleName {
     private String sqlStr ;
     private String sqlPart ;
 
+    public RuleName(Object object) {
+        RuleName casted = (RuleName) object;
+        this.setId(casted.getId());
+        this.setName(casted.getName());
+        this.setDescription(casted.getDescription());
+    }
+
 }
