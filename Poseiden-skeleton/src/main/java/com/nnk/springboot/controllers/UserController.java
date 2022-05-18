@@ -2,7 +2,11 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,23 +20,30 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
+
+    private static final Logger logger = LogManager.getLogger(UserController.class.getName());
+
     @Autowired
     private UserRepository userRepository;
 
     @RequestMapping("/user/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
+        logger.info("Affichage de la liste de model User");
         model.addAttribute("users", userRepository.findAll());
         return "user/list";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/user/add")
     public String addUser(User bid) {
+        logger.info("Affichage de la page d'ajout de model User");
         return "user/add";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
+        logger.info("Requête de validation de l'ajout d'un model User");
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
@@ -43,17 +54,21 @@ public class UserController {
         return "user/add";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        logger.info("Affichage de la page de modification d'un model User");
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
+        logger.info("Requête de modification d'un model User");
         if (result.hasErrors()) {
             return "user/update";
         }
@@ -66,8 +81,10 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
+        logger.info("Requête de suppresion d'un model User");
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
         model.addAttribute("users", userRepository.findAll());
