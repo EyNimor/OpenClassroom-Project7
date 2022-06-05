@@ -56,6 +56,7 @@ public class RuleNameService implements Services {
     @Override
     public void delete(Integer id) {
         ruleNameRepo.deleteById(id);
+        ruleNameRepo.flush();
     }
     
 }

@@ -4,15 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "curvepoint")
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@ExcludeFromJacocoGeneratedReport
 public class CurvePoint {
 
     @Id
@@ -31,6 +35,12 @@ public class CurvePoint {
         this.setCurveId(casted.getCurveId());
         this.setTerm(casted.getTerm());
         this.setValue(casted.getValue());
+    }
+
+    public CurvePoint(@NotNull(message = "Curve ID must not be null") Integer curveId, Double term, Double value) {
+        this.setCurveId(curveId);
+        this.setTerm(term);
+        this.setValue(value);
     }
 
 }

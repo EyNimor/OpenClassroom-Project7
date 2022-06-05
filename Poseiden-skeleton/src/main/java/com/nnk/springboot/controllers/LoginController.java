@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
 import com.nnk.springboot.repositories.UserRepository;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("app")
+@ExcludeFromJacocoGeneratedReport
 public class LoginController {
 
     private static final Logger logger = LogManager.getLogger(LoginController.class.getName());

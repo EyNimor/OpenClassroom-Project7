@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,18 +12,21 @@ import javax.validation.constraints.NotBlank;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
+
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bidlist")
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@ExcludeFromJacocoGeneratedReport
 public class BidList { 
 
     private static final Logger logger = LogManager.getLogger("BidList");
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer BidListId ;
+    private Integer bidListId ;
     @NotBlank(message = "Account is mandatory")
     private String account ;
     @NotBlank(message = "Type is mandatory")
@@ -58,6 +62,19 @@ public class BidList {
         }
         else {
             this.setBidQuantity(casted.getBidQuantity());
+        }
+    }
+
+    public BidList(@NotBlank(message = "Account is mandatory") String account,
+            @NotBlank(message = "Type is mandatory") String type, Double bidQuantity) {
+        this.setAccount(account);
+        this.setType(type);
+        if(bidQuantity == null) {
+            logger.info("BidQuantity = null : passage à 0.0");
+            this.setBidQuantity(0.0);
+        }
+        else {
+            this.setBidQuantity(bidQuantity);
         }
     }
 

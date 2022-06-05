@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
+
 @Controller
+@ExcludeFromJacocoGeneratedReport
 public class HomeController {
 
 	private static final Logger logger = LogManager.getLogger(HomeController.class.getName());

@@ -4,15 +4,19 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Entity
 @Table(name = "trade")
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@ExcludeFromJacocoGeneratedReport
 public class Trade {
     
     @Id
@@ -45,6 +49,12 @@ public class Trade {
         this.setAccount(casted.getAccount());
         this.setType(casted.getType());
         this.setBuyQuantity(casted.getBuyQuantity());
+    }
+
+    public Trade(String account, String type, Double buyQuantity) {
+        this.setAccount(account);
+        this.setType(type);
+        this.setBuyQuantity(buyQuantity);
     }
 
 }

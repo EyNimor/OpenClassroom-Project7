@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.service.Services;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 @Controller
+@ExcludeFromJacocoGeneratedReport
 public class BidListController {
     
     private static final Logger logger = LogManager.getLogger(BidListController.class.getName());

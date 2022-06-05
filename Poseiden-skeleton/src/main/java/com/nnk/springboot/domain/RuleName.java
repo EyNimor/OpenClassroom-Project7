@@ -2,14 +2,18 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "rulename")
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@ExcludeFromJacocoGeneratedReport
 public class RuleName {
     
     @Id
@@ -27,6 +31,11 @@ public class RuleName {
         this.setId(casted.getId());
         this.setName(casted.getName());
         this.setDescription(casted.getDescription());
+    }
+
+    public RuleName(String name, String description) {
+        this.setName(name);
+        this.setDescription(description);
     }
 
 }

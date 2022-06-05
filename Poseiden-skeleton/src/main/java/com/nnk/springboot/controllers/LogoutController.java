@@ -12,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
+
 @Controller
+@ExcludeFromJacocoGeneratedReport
 public class LogoutController {
 
     private static final Logger logger = LogManager.getLogger(LogoutController.class.getName());

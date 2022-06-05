@@ -2,14 +2,18 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "rating")
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString
+@ExcludeFromJacocoGeneratedReport
 public class Rating {
     
     @Id
@@ -26,6 +30,12 @@ public class Rating {
         this.setMoodysRating(casted.getMoodysRating());
         this.setSandPRating(casted.getSandPRating());
         this.setFitchRating(casted.getFitchRating());
+    }
+
+    public Rating(String moodysRating, String sandPRating, String fitchRating) {
+        this.setMoodysRating(moodysRating);
+        this.setSandPRating(sandPRating);
+        this.setFitchRating(fitchRating);
     }
 
 }

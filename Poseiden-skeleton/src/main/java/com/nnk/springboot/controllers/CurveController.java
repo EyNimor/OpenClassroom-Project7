@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.annotation.ExcludeFromJacocoGeneratedReport;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.Services;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 @Controller
+@ExcludeFromJacocoGeneratedReport
 public class CurveController {
     
     private static final Logger logger = LogManager.getLogger(CurveController.class.getName());
